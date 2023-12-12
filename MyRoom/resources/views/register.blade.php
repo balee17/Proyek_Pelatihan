@@ -11,30 +11,25 @@
   <body>
     <section>
     <div class="container center-form">
-        <form class="form-box">
+        <form class="form-box" action = "/cekregis" method="POST">
+          @csrf
             <h1>Silahkan daftar melalui form ini</h1>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="email">
-                <div id="email" class="form-text"></div>
+                <input type="email" class="form-control" id="email" name ="email" aria-describedby="email">
             </div>
             <div class="mb-3">
                 <label for="exampleInputUsername" class="form-label">Username</label>
-                <input type="text" class="form-control" id="exampleInputUsername">
-                <div id="username" class="form-text"></div>
+                <input type="text" class="form-control" id="name" name="nama">
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <input type="password" class="form-control" id="password" name ="password">
             </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="/" class="btn btn-primary">Login</a>
+            <button type="submit" class="btn btn-primary float-end">Daftar</button>
         </form>
-    </div>
+      </div>
     </section>
   </body>
 </html>
