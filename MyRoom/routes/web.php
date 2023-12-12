@@ -28,8 +28,14 @@ Route::post('/ceklogin', [AuthController::class, 'ceklogin'])->name('ceklogin');
 Route::post('/ceklogin2', [AuthController::class, 'ceklogin2'])->name('ceklogin2');
 Route::get('/home', [UserController::class, 'dashboard'])->name('dashboard');
 Route::get('/adminhome', [AdminController::class, 'admindashboard'])->name('admindashboard');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 #User
+Route::get('/listroom', [UserController::class, 'listroom'])->name('listroom');
+Route::get('/profile', [UserController::class, 'profileuser'])->name('profileuser');
+Route::post('/updateprof', [UserController::class, 'updateprof'])->name('updateprof');
+Route::get('/search', [UserController::class, 'search'])->name('search');
+
 
 #Admin
 
