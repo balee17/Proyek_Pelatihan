@@ -1,9 +1,0 @@
-diff a/MyRoom/app/Models/User.php b/MyRoom/app/Models/User.php	(rejected hunks)
-@@ -19,6 +19,7 @@
-      */
-     protected $fillable = [
-         'name',
-+        'role',
-         'email',
-         'password',
-     ];

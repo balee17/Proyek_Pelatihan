@@ -11,19 +11,23 @@
   <body>
     <section>
     <div class="container center-form">
-        <form class="form-box" action="ceklogin" method="POST">
+            @if(session('alert'))
+            <div class="alert alert-danger">
+                {{ session('alert') }}
+            </div>
+        @endif
+        <form class="form-box" action="ceklogin2" method="POST">
           @csrf
-            <h1>Selamat Datang di MyRoom</h1>
+            <h1>MyRoom Admin</h1>
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text"></div>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
-            </div>
-            <a href="/register" class="btn btn-primary">Daftar</a>
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="admin@email.com" name ="email">
+              <div id="emailHelp" class="form-text"></div>
+          </div>
+          <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" value="admin" name = "password">
+          </div>
             <button type="submit" class="btn btn-primary float-end">Login</button>
         </form>
     </div>

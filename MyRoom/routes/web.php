@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,14 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', function () {
+Route::get('/', function () {
     return view('login');
 });
-
-Route::get('/register', function () {
-    return view('register');
+Route::get('/admin', function () {
+    return view('loginadmin');
 });
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/cekregis', [AuthController::class, 'cekregis'])->name('cekregis');
+Route::post('/ceklogin', [AuthController::class, 'ceklogin'])->name('ceklogin');
+Route::post('/ceklogin2', [AuthController::class, 'ceklogin2'])->name('ceklogin2');
+Route::get('/home', [UserController::class, 'dashboard'])->name('dashboard');
+Route::get('/adminhome', [AdminController::class, 'admindashboard'])->name('admindashboard');
 
-Route::get('/home', function () {
-    return view('user.dashboard');
-});
+#User
+
+#Admin
+
