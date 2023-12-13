@@ -29,7 +29,7 @@
                 <button class="btn btn-book-a-table dropdown-toggle"  type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->nama }}</button></a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="/profile">Profil</a></li>
-                  <li><a class="dropdown-item" href="/transaksi">Transaksi</a></li>
+                  <li><a class="dropdown-item" href="/riwayat">Riwayat</a></li>
                   <li><a class="dropdown-item" href="/logout">Log out</a></li>
                 </ul>
               </div>

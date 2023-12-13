@@ -22,6 +22,11 @@ class Room extends Model
         'kondisi',
     ];
 
+    public function transactions()
+    {
+        return $this->hasMany(Transaksi::class, 'id_ruangan');
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *
