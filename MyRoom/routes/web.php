@@ -35,6 +35,15 @@ Route::get('/listroom', [UserController::class, 'listroom'])->name('listroom');
 Route::get('/profile', [UserController::class, 'profileuser'])->name('profileuser');
 Route::post('/updateprof', [UserController::class, 'updateprof'])->name('updateprof');
 Route::get('/search', [UserController::class, 'search'])->name('search');
+Route::get('/bayar', [UserController::class, 'bayar'])->name('bayar');
+Route::get('/bayar/{id}', [UserController::class, 'bayar'])->name('bayar');
+Route::post('/checkout', [UserController::class, 'pay'])->name('pay');
+Route::get('/riwayat/{id}', [UserController::class, 'riwayat'])->name('riwayat');
+Route::get('/riwayat', [UserController::class, 'riwayat'])->name('riwayat');
+Route::put('/status/{id}', [UserController::class, 'status'])->name('status');
+
+
+
 
 
 #Admin

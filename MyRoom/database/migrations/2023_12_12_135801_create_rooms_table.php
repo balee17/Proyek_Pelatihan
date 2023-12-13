@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama', 100);
             $table->string('kode');
             $table->integer('kapasitas');
+            $table->integer('harga');
             $table->string('foto')->nullable();
             $table->string('kondisi')->default('kosong');
             $table->timestamps();

@@ -29,6 +29,7 @@ class RoomSeeder extends Seeder
                     DB::table('rooms')->insert([
                         'nama' => $faker->randomElement($namaRuangan),
                         'kode' => $this->generateRandomCode($faker),
+                        'harga' => $faker->numberBetween(50000, 20000),
                         'kapasitas' => $faker->numberBetween(5, 12),
                         'foto' => $faker->randomElement($gambarUrls),
                         'kondisi' => "kosong"

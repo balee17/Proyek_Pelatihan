@@ -37,45 +37,51 @@
         </nav>
     </header>
 
-    <section class="sec">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="text-center">List Room</h1>
-                <form action="{{ route('search') }}" method="GET" class="mb-4">
-                    <div class="input-group">
-                        <input type="text" name="keyword" class="form-control" placeholder="Cari room...">
-                        <button type="submit" class="btn btn-primary">Cari</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        
-        <div class="row">
-            @foreach ($list as $l)
-                <div class="col-md-4">
-                    <div class="card mb-4 box-shadow">
-                        <img class="card-img-top" src="{{ $l->foto }}" alt="Gambar" class="img-fluid" style="width: 100%; height: 100%;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $l->nama }}</h5>
-                            <p class="card-text">{{ $l->kode }}</p>
-                            <p class="card-text">Rp {{ number_format($l->harga, 0, ',', '.') }} / Jam</p>
-                            <h3 class="card-title">{{ $l->kapasitas }} orang</h3>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <form action="{{ route('bayar', ['id' => $l->id]) }}" method="GET">
-                                        @csrf
-                                        <input type="number" name="hours" value="1" id="hourCount" min="1" max="5"> Jam <br><br>
-                                        <button type="submit" class="btn btn-sm btn-outline-success  ">Sewa</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <section class="sec" id = "tentang">
+      <div class="row">
+      <center><h1>Riwayat Transaksi</h1>
+      <p>Ini adalah riwayat anda</p>
+      <br><br></center>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
+           <thead class = "table-success">
+            <tr>
+                <th>Nama Ruangan</th>
+                <th>Kode Ruangan</th>
+                <th>Durasi</th>
+                <th>Harga</th>
+                <th>Status Pesanan</th>
+                <th>Beritahu admin jika sudah selesai</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($list as $l)
+                <tr>
+                    <td>{{$l->nama_ruangan}}</td>
+                    <td>{{$l->kode_ruangan}}</td>
+                    <td>{{$l->durasi}} Jam</td>
+                    <td>Rp{{ number_format($l->harga, 0, ',', '.') }}</td>    
+                    <td>{{$l->status}}</td>
+                    <td>
+                    @if($l->status != 'Menunggu Konfirmasi' && $l->status != 'Admin akan mengecek ruangan')
+                        <form id="changeStatusForm{{ $l->id }}" action="/status/{{ $l->id }}" method="POST" style="display: none;">
+                            @csrf
+                            <input type="hidden" name="_method" value="PUT">
+                        </form>
+                        <button class="btn btn-outline-success me-2" onclick="submitForm('changeStatusForm{{ $l->id }}')">Beritahu</button>
+                    @endif
+            </td>
+                </tr>
             @endforeach
-        </div>
-    </div>
-</section>
-
-  </body>
+            </tbody>
+        </table>
+        <script>
+    function submitForm(formId) {
+        // Temukan formulir dengan ID tertentu dan kirimkan pengguna ke endpoint yang sesuai
+        var form = document.getElementById(formId);
+        form.submit();
+    }
+</script>
+</body>
+</html>
