@@ -18,6 +18,7 @@ class Room extends Model
         'nama',
         'kode',
         'kapasitas',
+        'harga',
         'foto',
         'kondisi',
     ];

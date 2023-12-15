@@ -25,6 +25,18 @@
             background:#107923 !important;
 
         }
+
+        .pagination {
+        list-style: none;
+        display: flex;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background-color: #f8f9fa;
+        }
     </style>
 
 </head>
@@ -190,7 +202,7 @@
                                     Profile
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="C:\xampp\htdocs\SI4402_F_FARMLOGS\resources\views\welcome.blade.php" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -201,111 +213,73 @@
 
                 </nav>
                 <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Jumlah Ruangan</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$ruang}}</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Ruangan Terpakai </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$used_room}}</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                User</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$user}}</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-user fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-
-
-                    
-            </div>
-            <!-- End of Main Content -->
-            <div class="card shadow mb-4">
+                <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">
-                                Nama User
-                            </h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Nama</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
+                                            <th>Nama Ruangan</th>
+                                            <th>Kode Ruangan</th>
+                                            <th>Email User</th>
+                                            <th>Durasi</th>
+                                            <th>Harga</th>
+                                            <th>Pembayaran</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($users as $us)
-                                        <tr>
-                                            <td>{{$us->nama}}</td>
-                                            <td>{{$us->email}}</td>
-                                            <td>{{$us->role}}</td>
-                                        </tr> 
-                                        @endforeach
+                                    @foreach($transaksi as $tr)
+                                    <tr>
+                                        <td>{{$tr->nama_ruangan}}</td>   
+                                        <td>{{$tr->kode_ruangan }}</td>
+                                        <td>{{$tr->email_user }}</td>
+                                        <td>{{$tr->durasi }} Jam</td>
+                                        <td>Rp {{ number_format($tr->harga, 0, ',', '.') }}</td>
+                                        <td>{{$tr->pembayaran }}</td>
+                                        <td>
+                                        @if ($tr->status != 'Selesai' && $tr->status != 'Digunakan')
+                                                <form action="{{ route('transaksi.konfirmasi.update', ['id' => $tr->id]) }}" method="post">
+                                                    @csrf
+
+                                                    <select name="status" id="status">
+                                                        <option value="{{ $tr->status }}" selected>{{ $tr->status }}</option>
+                                                        <option value="Digunakan">Digunakan</option>
+                                                        <option value="Selesai">Selesai</option>
+                                                    </select>
+                                            @else
+                                                <span>{{ $tr->status }}</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                        <button type="submit" class="btn btn-primary">Perbarui Status</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach     
                                     </tbody>
                                 </table>
+                                <button id="print-button" class="btn btn-primary d-print-none">Print Data</button>
+                                    <a href="/adminhome">
+                                        <button  class="btn btn-primary d-print-none">Kembali</button>
+                                    </a>
+                                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+                                <script>
+                                    document.getElementById('print-button').addEventListener('click', function() {
+                                        window.print();
+                                    });
+                                </script>
                             </div>
                         </div>
                     </div>
                     </div>
-
-
-            
-
-
-        </div>
         <!-- End of Content Wrapper -->
 
     </div>
-    
+    <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -331,6 +305,8 @@
             </div>
         </div>
     </div>
+
+    
     
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('template/vendor/jquery/jquery.min.js')}}"></script>
@@ -341,6 +317,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{asset('template/js/sb-admin-2.min.js')}}"></script>
+
+    <script src="{{asset('template/js/demo/datatables-demo.js')}}"></script>
 
 </body>
 
