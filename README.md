@@ -10,4 +10,4 @@
 <p>Dashboard</p>
 
 <h2>Schema Database</h2>
-![image](https://github.com/balee17/Proyek_Pelatihan/assets/115573412/8901408c-2f04-4e47-9c40-5abd4aa0f5b9)
+![Screenshot 2023-12-15 210507](https://github.com/balee17/Proyek_Pelatihan/assets/115573412/3236f3f1-e6af-4983-acfd-2eb0a104f1bc)
