@@ -42,9 +42,11 @@ Route::get('/riwayat/{id}', [UserController::class, 'riwayat'])->name('riwayat')
 Route::get('/riwayat', [UserController::class, 'riwayat'])->name('riwayat');
 Route::put('/status/{id}', [UserController::class, 'status'])->name('status');
 
-
-
-
-
 #Admin
-
+Route::get('/adminroom', [AdminController::class, 'adminroom'])->name('adminroom');
+Route::delete('/adminroom/{id}', [AdminController::class, 'roomdelete'])->name('roomdelete');
+Route::get('/transaksi', [AdminController::class, 'transaksi'])->name('transaksi');
+Route::get('/transaksi/{id}/konfirmasi', [AdminController::class, 'showKonfirmasiForm'])->name('transaksi.konfirmasi');
+Route::post('/transaksi/{id}/konfirmasi', [AdminController::class, 'konfirmasi'])->name('transaksi.konfirmasi.update');
+Route::get('/storeroom', [AdminController::class, 'storeroom'])->name('storeroom');
+Route::post('/addroom', [AdminController::class, 'addroom'])->name('addroom');

@@ -25,6 +25,18 @@
             background:#107923 !important;
 
         }
+
+        .pagination {
+        list-style: none;
+        display: flex;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background-color: #f8f9fa;
+        }
     </style>
 
 </head>
@@ -82,7 +94,7 @@
                         <h6 class="collapse-header">Pages:</h6>
 
 
-                        <a class="collapse-item" href="#">User</a>
+                        <a class="collapse-item" href="/#">User</a>
                         <a class="collapse-item" href="/adminroom">Room</a>
                         
                     </div>
@@ -190,7 +202,7 @@
                                     Profile
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="C:\xampp\htdocs\SI4402_F_FARMLOGS\resources\views\welcome.blade.php" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -205,97 +217,49 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Room</h1>
+    <p class="mb-4"><a href="storeroom">Tambah ruangan</a></p>
 
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Jumlah Ruangan</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$ruang}}</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Ruangan Terpakai </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$used_room}}</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                User</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$user}}</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-user fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-
-
-                    
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nama Ruangan</th>
+                            <th>Kode Ruangan</th>
+                            <th>Harga</th>
+                            <th>Jumlah</th>
+                            <th>Foto</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($rooms as $room)
+                        <tr>
+                            <td>{{ $room->nama }}</td>
+                            <td>{{ $room->kode }}</td>
+                            <td>Rp{{ number_format($room->harga, 0, ',', '.') }}</td>
+                            <td>{{ $room->kapasitas }} Orang</td>
+                            <td><img src="{{ $room->foto }}" class="img-fluid" style="width: 200px; height: 150px;"></td>
+                            <td>
+                            <form action="{{ route('roomdelete', ['id' => $room->id]) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-edit">Hapus</button>
+                            </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-            <!-- End of Main Content -->
-            <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">
-                                Nama User
-                            </h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($users as $us)
-                                        <tr>
-                                            <td>{{$us->nama}}</td>
-                                            <td>{{$us->email}}</td>
-                                            <td>{{$us->role}}</td>
-                                        </tr> 
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
+        </div>
+    </div>
+  
+</div>
 
 
             
@@ -305,7 +269,7 @@
         <!-- End of Content Wrapper -->
 
     </div>
-    
+    <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -341,6 +305,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{asset('template/js/sb-admin-2.min.js')}}"></script>
+
+    <script src="{{asset('template/js/demo/datatables-demo.js')}}"></script>
 
 </body>
 

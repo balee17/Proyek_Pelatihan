@@ -25,6 +25,18 @@
             background:#107923 !important;
 
         }
+
+        .pagination {
+        list-style: none;
+        display: flex;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background-color: #f8f9fa;
+        }
     </style>
 
 </head>
@@ -190,7 +202,7 @@
                                     Profile
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="C:\xampp\htdocs\SI4402_F_FARMLOGS\resources\views\welcome.blade.php" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -205,107 +217,54 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Addroom</h1>
 
-                    <!-- Content Row -->
-                    <div class="row">
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <form action="/addroom" method="POST" enctype="multipart/form-data">
+                            @csrf
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Jumlah Ruangan</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$ruang}}</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label for="nama">Nama:</label>
+                                <input type="text" class="form-control" id="nama" name="nama" required>
                             </div>
-                        </div>
 
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Ruangan Terpakai </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$used_room}}</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label for="kode">Kode:</label>
+                                <input type="text" class="form-control" id="kode" name="kode" required>
                             </div>
-                        </div>
 
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                User</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$user}}</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-user fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label for="kapasitas">Kapasitas:</label>
+                                <input type="number" class="form-control" id="kapasitas" name="kapasitas" required>
                             </div>
-                        </div>
-                        
+
+                            <div class="form-group">
+                                <label for="harga">Harga:</label>
+                                <input type="number" class="form-control" id="harga" name="harga" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="foto">Link Gambar:</label>
+                                <input type="text" class="form-control" id="foto" name="foto" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
 
 
-                    
+                </div>
+                <!-- /.container-fluid -->
+
             </div>
             <!-- End of Main Content -->
-            <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">
-                                Nama User
-                            </h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($users as $us)
-                                        <tr>
-                                            <td>{{$us->nama}}</td>
-                                            <td>{{$us->email}}</td>
-                                            <td>{{$us->role}}</td>
-                                        </tr> 
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-
-
-            
-
-
-        </div>
-        <!-- End of Content Wrapper -->
 
     </div>
-    
+    <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -341,6 +300,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{asset('template/js/sb-admin-2.min.js')}}"></script>
+
+    <script src="{{asset('template/js/demo/datatables-demo.js')}}"></script>
 
 </body>
 
