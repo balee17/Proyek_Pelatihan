@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Room;
 use App\Models\Transaksi;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -40,21 +42,27 @@ class UserController extends Controller
 
     public function updateprof(Request $request)
     {           
+        $user = Auth::user();
+
         $request->validate([
+            'nama' => [
+                'required',
+                Rule::unique('users', 'nama')->ignore($user->id),
+            ],
             'password' => 'confirmed',
-
+        ], [
+            'nama.unique' => 'Username sudah terdaftar. Silakan gunakan username lain.',
         ]);
-        $user = Auth::user();;
+
         DB::table('users')
-        ->where('id', $user->id)
-        ->update([
-            'email'=> $request->email,
-            'nama'=> $request->nama,
-            'password'=> Hash::make($request->password),
+            ->where('id', $user->id)
+            ->update([
+                'email' => $request->email,
+                'nama' => $request->nama,
+                'password' => Hash::make($request->password),
+            ]);
 
-        ]);
-
-        return back();
+        return redirect()->back()->withInput()->with('success', 'Berhasil mengganti username');
     }
 
     public function bayar(Request $request, $id)
@@ -85,6 +93,9 @@ class UserController extends Controller
             return redirect()->back();
         }
 
+        $waktuMulai = now();
+        $waktuSelesai = now()->addHours($request->durasi)->addMinutes(5);
+
         $pay = transaksi::create([
 
             'id_user' => $idUser,
@@ -93,6 +104,8 @@ class UserController extends Controller
             'kode_ruangan'=> $request->kode,
             'email_user'=> $request->email_user,
             'durasi'=> $request->durasi,
+            'waktu_mulai' => $waktuMulai,
+            'waktu_selesai' => $waktuSelesai,
             'harga' => $request->totalHarga,
             'pembayaran' => $request -> pembayaran,
             'status' => "Menunggu Konfirmasi"

@@ -18,6 +18,8 @@ class Transaksi extends Model
         'kode_ruangan',
         'email_user',
         'durasi',
+        'waktu_mulai',
+        'waktu_selesai',
         'harga',
         'pembayaran',
         'status'

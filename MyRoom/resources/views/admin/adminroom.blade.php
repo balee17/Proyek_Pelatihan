@@ -202,7 +202,7 @@
                                     Profile
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="C:\xampp\htdocs\SI4402_F_FARMLOGS\resources\views\welcome.blade.php" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -254,12 +254,34 @@
                             <td>{{ $room -> kondisi}}</td>
                             <td>
                             @if ($room->kondisi != 'Terisi')
-                                <form action="{{ route('roomdelete', ['id' => $room->id]) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-edit">Hapus</button>
-                                </form>
+                                <button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#deleteModal{{ $room->id }}">
+                                    Hapus
+                                </button>
+                                <div class="modal fade" id="deleteModal{{ $room->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Hapus Ruangan</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Apakah Anda yakin ingin menghapus ruangan ini?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form method="post" action="{{ route('roomdelete', ['id' => $room->id]) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-edit">Hapus</button>
+                                                </form>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endif
+                                
                             </td>
                         </tr>
                         @endforeach
@@ -305,6 +327,8 @@
             </div>
         </div>
     </div>
+</div>
+
     
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('template/vendor/jquery/jquery.min.js')}}"></script>
@@ -317,6 +341,8 @@
     <script src="{{asset('template/js/sb-admin-2.min.js')}}"></script>
 
     <script src="{{asset('template/js/demo/datatables-demo.js')}}"></script>
+    <script>
+
 
 </body>
 

@@ -19,9 +19,11 @@ class AuthController extends Controller
     public function cekregis(Request $request)
     {
         $request->validate([
-            'email' => ['required', 'unique:users',]
+            'email' => ['required', 'unique:users'],
+            'nama' => ['required', 'unique:users'],
         ], [
             'email.unique' => 'Email sudah terdaftar. Silakan gunakan email lain.',
+            'nama.unique' => 'Username sudah terdaftar. Silakan gunakan username lain.',
         ]);
 
         $RegisterUser = User::create([
@@ -31,7 +33,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
         if($RegisterUser){
-            return redirect('/');
+            return redirect('/')->with('success', 'Registrasi berhasil');
         }
 
     }
@@ -39,16 +41,21 @@ class AuthController extends Controller
     {
         
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required']
+            'email_atau_username' => ['required'],
+            'password' => ['required'],
         ]);
+    
+        $fieldType = filter_var($request->email_atau_username, FILTER_VALIDATE_EMAIL) ? 'email' : 'nama';
+        $credentials[$fieldType] = $request->email_atau_username;
+        unset($credentials['email_atau_username']);
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
  
             return redirect()->intended('/home');
         }
 
-        return redirect()->back()->withInput()->with('error', 'Email atau password salah');
+        return redirect()->back()->withInput()->with('error', 'Email, Username atau password salah');
     }
     public function ceklogin2(Request $request)
     {

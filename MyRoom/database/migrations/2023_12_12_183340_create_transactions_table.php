@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('kode_ruangan');
             $table->string('email_user');
             $table->integer('durasi');
+            $table->datetime('waktu_mulai')->nullable();
+            $table->datetime('waktu_selesai')->nullable();
             $table->string('harga');
             $table->string('pembayaran');
             $table->string('status');

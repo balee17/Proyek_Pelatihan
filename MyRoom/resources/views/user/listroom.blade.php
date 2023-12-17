@@ -29,7 +29,7 @@
                 <button class="btn btn-book-a-table dropdown-toggle"  type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->nama }}</button></a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="/profile">Profil</a></li>
-                  <li><a class="dropdown-item" href="/transaksi">Transaksi</a></li>
+                  <li><a class="dropdown-item" href="/riwayat">Transaksi</a></li>
                   <li><a class="dropdown-item" href="/logout">Log out</a></li>
                 </ul>
               </div>
@@ -59,8 +59,8 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $l->nama }}</h5>
                             <p class="card-text">{{ $l->kode }}</p>
-                            <p class="card-text">Rp {{ number_format($l->harga, 0, ',', '.') }} / Jam</p>
-                            <h3 class="card-title">{{ $l->kapasitas }} orang</h3>
+                            <h6 class="card-text">Harga Sewa : Rp {{ number_format($l->harga, 0, ',', '.') }} / Jam</h6>
+                            <h6 class="card-title">Kapasistas Maksimal : {{ $l->kapasitas }} orang</h6>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <form action="{{ route('bayar', ['id' => $l->id]) }}" method="GET">

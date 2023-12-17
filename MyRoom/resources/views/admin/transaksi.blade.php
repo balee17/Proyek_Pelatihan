@@ -248,6 +248,7 @@
                                                     <select name="status" id="status">
                                                         <option value="{{ $tr->status }}" selected>{{ $tr->status }}</option>
                                                         <option value="Digunakan">Digunakan</option>
+                                                        <option value="Ditolak">Sudah di booking</option>
                                                         <option value="Selesai">Selesai</option>
                                                     </select>
                                             @else

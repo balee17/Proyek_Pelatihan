@@ -41,6 +41,14 @@
     <div class="mt-4">
         <form action="/updateprof" method="post" enctype="multipart/form-data">
             @csrf
+            @error('nama')
+              <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            @if(session('success'))
+              <div class="alert alert-success">
+                  {{ session('success') }}
+              </div>
+            @endif
             <div>
                 <input type="hidden" value="{{ Auth::user()->id }}" name="id">
             </div>
@@ -74,30 +82,4 @@
             </div>
         </form>
     </div>
-
-    <script>
-    function validateForm() {
-        
-        var lahanInput = document.getElementById('konfirmasi');
-
-        
-        if (lahanInput.value === '') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Form tidak lengkap',
-                text: 'Mohon isi semua field yang diperlukan'
-            });
-        } else {
-            showSuccessNotification();
-        }
-    }
-
-    function showSuccessNotification() {
-        Swal.fire({
-            icon: 'success',
-            title: 'Data berhasil diupdate',
-            text: 'Data diri berhasil di update'
-        });
-    }
-</script>
 </html>

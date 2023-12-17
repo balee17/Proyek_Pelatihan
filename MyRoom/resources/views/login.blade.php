@@ -18,17 +18,23 @@
             <div class="alert alert-danger">
                 {{ session('error') }}
             </div>
-             @endif
+            @elseif(session('success'))
+              <div class="alert alert-success">
+                  {{ session('success') }}
+              </div>
+            @endif
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" required>
-                <div id="emailHelp" class="form-text"></div>
+                <label for="Email_atau_Username" class="form-label">Email / Username</label>
+                <input type="text" class="form-control" id="email" name="email_atau_username" aria-describedby="email_username" required>
+                <div id="email_username" class="form-text"></div>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" required>
             </div>
-            <a href="/register" class="btn btn-primary">Daftar</a>
+            <p>Belum Memiliki Akun?
+            <a href="/register" class="">Daftar</a>
+            </p>
             <button type="submit" class="btn btn-primary float-end">Login</button>
         </form>
     </div>

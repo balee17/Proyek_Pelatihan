@@ -50,6 +50,8 @@
                 <th>Nama Ruangan</th>
                 <th>Kode Ruangan</th>
                 <th>Durasi</th>
+                <th>Mulai</th>
+                <th>Selesai</th>
                 <th>Harga</th>
                 <th>Status Pesanan</th>
                 <th>Beritahu admin jika sudah selesai</th>
@@ -61,10 +63,12 @@
                     <td>{{$l->nama_ruangan}}</td>
                     <td>{{$l->kode_ruangan}}</td>
                     <td>{{$l->durasi}} Jam</td>
+                    <td>{{$l->waktu_mulai}}</td>
+                    <td>{{$l->waktu_selesai}}</td>
                     <td>Rp{{ number_format($l->harga, 0, ',', '.') }}</td>    
                     <td>{{$l->status}}</td>
                     <td>
-                    @if($l->status != 'Menunggu Konfirmasi' && $l->status != 'Admin akan mengecek ruangan' && $l->status != 'Selesai')
+                    @if($l->status != 'Menunggu Konfirmasi' && $l->status != 'Admin akan mengecek ruangan' && $l->status != 'Selesai' && $l->status != 'Ditolak')
                         <form id="changeStatusForm{{ $l->id }}" action="/status/{{ $l->id }}" method="POST" style="display: none;">
                             @csrf
                             <input type="hidden" name="_method" value="PUT">
@@ -76,11 +80,18 @@
             @endforeach
             </tbody>
         </table>
+        <button id="print-button" class="btn btn-primary d-print-none">Print Data</button>
         <script>
     function submitForm(formId) {
         var form = document.getElementById(formId);
         form.submit();
     }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script>
+    document.getElementById('print-button').addEventListener('click', function() {
+        window.print();
+    });
 </script>
 </body>
 </html>

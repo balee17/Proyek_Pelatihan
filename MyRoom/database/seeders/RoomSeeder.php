@@ -25,11 +25,11 @@ class RoomSeeder extends Seeder
 
                 $namaRuangan = ['Ruangan Kerja A', 'Ruangan Kerja B', 'Ruangan Kerja C'];
 
-                foreach (range(1, 2) as $index) {
+                foreach (range(1, 5) as $index) {
                     DB::table('rooms')->insert([
                         'nama' => $faker->randomElement($namaRuangan),
                         'kode' => $this->generateRandomCode($faker),
-                        'harga' => $faker->numberBetween(50000, 20000),
+                        'harga' => $faker->numberBetween(50000, 120000),
                         'kapasitas' => $faker->numberBetween(5, 12),
                         'foto' => $faker->randomElement($gambarUrls),
                         'kondisi' => "kosong"
