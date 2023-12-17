@@ -59,11 +59,16 @@ class AdminController extends Controller
             $transaksi->status = $request->input('status');
             $transaksi->save();
 
-            // Update kondisi pada tabel room
             if ($transaksi->status == 'Digunakan') {
-                $room = Room::find($transaksi->id_room);
+                $room = $transaksi->room;
                 if ($room) {
                     $room->kondisi = 'Terisi';
+                    $room->save();
+                }
+            } elseif ($transaksi->status == 'Selesai') {
+                $room = $transaksi->room;
+                if ($room) {
+                    $room->kondisi = 'Kosong';
                     $room->save();
                 }
             }
@@ -80,15 +85,31 @@ class AdminController extends Controller
     public function addroom(Request $request)
     {
 
-        $RegisterRoom = Room::create([
+        $request->validate([
+            'nama' => 'required',
+            'kode' => 'required',
+            'kapasitas' => 'required|numeric',
+            'harga' => 'required|numeric',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        $path = $request->file('foto')->store('public');
+    
+        $namaGambar = basename($path);
+    
+        $registerRoom = Room::create([
             'nama' => $request->nama,
             'kode' => $request->kode,
             'kapasitas' => $request->kapasitas,
             'harga' => $request->harga,
-            'foto' => $request->foto,
+            'foto' => $namaGambar, // Simpan nama gambar ke dalam kolom "foto" di database
         ]);
-        if($RegisterRoom){
-            return redirect('/adminroom');
+    
+        if ($registerRoom) {
+            return redirect('/adminroom')->with('success', 'Ruangan berhasil ditambahkan!');
+        } else {
+            // Handle error jika perlu
+            return redirect('/adminroom')->with('error', 'Gagal menambahkan ruangan.');
         }
     }
 

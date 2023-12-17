@@ -75,8 +75,8 @@ class UserController extends Controller
         $idRuangan = request('id_ruangan'); 
 
         $jumlahPenyewaanAktif = Transaksi::where('id_user', $idUser)
-                                    ->where('status', '!=', 'selesai')
-                                    ->count();
+                                ->where('status', '!=', 'selesai')
+                                ->count();
 
         $batasPenyewaan = 2;
 

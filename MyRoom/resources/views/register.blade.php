@@ -11,9 +11,14 @@
   <body>
     <section>
     <div class="container center-form">
+
+       
         <form class="form-box" action = "/cekregis" method="POST">
           @csrf
             <h1>Silahkan daftar melalui form ini</h1>
+            @error('email')
+              <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="email" name ="email" aria-describedby="email" required>

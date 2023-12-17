@@ -283,11 +283,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($users as $us)
+                                        @foreach($users as $user)
                                         <tr>
-                                            <td>{{$us->nama}}</td>
-                                            <td>{{$us->email}}</td>
-                                            <td>{{$us->role}}</td>
+                                            <td>{{$user->nama}}</td>
+                                            <td>{{$user->email}}</td>
+                                            <td>{{$user->role}}</td>
                                         </tr> 
                                         @endforeach
                                     </tbody>
