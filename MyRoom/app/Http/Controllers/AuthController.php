@@ -20,6 +20,8 @@ class AuthController extends Controller
     {
         $request->validate([
             'email' => ['required', 'unique:users',]
+        ], [
+            'email.unique' => 'Email sudah terdaftar. Silakan gunakan email lain.',
         ]);
 
         $RegisterUser = User::create([
@@ -45,6 +47,8 @@ class AuthController extends Controller
  
             return redirect()->intended('/home');
         }
+
+        return redirect()->back()->withInput()->with('error', 'Email atau password salah');
     }
     public function ceklogin2(Request $request)
     {

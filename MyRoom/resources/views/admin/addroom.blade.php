@@ -248,7 +248,7 @@
 
                             <div class="form-group">
                                 <label for="foto">Link Gambar:</label>
-                                <input type="text" class="form-control" id="foto" name="foto" required>
+                                <input type="file" class="form-control" id="foto" name="foto" required>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Submit</button>

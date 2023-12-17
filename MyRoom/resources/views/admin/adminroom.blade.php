@@ -233,6 +233,7 @@
                             <th>Harga</th>
                             <th>Jumlah</th>
                             <th>Foto</th>
+                            <th>Kondisi</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -243,13 +244,22 @@
                             <td>{{ $room->kode }}</td>
                             <td>Rp{{ number_format($room->harga, 0, ',', '.') }}</td>
                             <td>{{ $room->kapasitas }} Orang</td>
-                            <td><img src="{{ $room->foto }}" class="img-fluid" style="width: 200px; height: 150px;"></td>
                             <td>
-                            <form action="{{ route('roomdelete', ['id' => $room->id]) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-edit">Hapus</button>
-                            </form>
+                                @if (filter_var($room->foto, FILTER_VALIDATE_URL))
+                                    <img src="{{ $room->foto }}" class="img-fluid" style="width: 200px; height: 150px;">
+                                @else
+                                    <img src="{{ asset('storage/'.$room->foto) }}" class="img-fluid" style="width: 200px; height: 150px;">
+                                @endif
+                            </td>
+                            <td>{{ $room -> kondisi}}</td>
+                            <td>
+                            @if ($room->kondisi != 'Terisi')
+                                <form action="{{ route('roomdelete', ['id' => $room->id]) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-edit">Hapus</button>
+                                </form>
+                            @endif
                             </td>
                         </tr>
                         @endforeach

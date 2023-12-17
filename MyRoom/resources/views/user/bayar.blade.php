@@ -69,6 +69,13 @@
             </li>
             </ul>
 
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+
             <form class="card p-2" method ="POST" action = "/checkout">
                 @csrf 
                 <input type="hidden" name="nama" value="{{$list -> nama}}">

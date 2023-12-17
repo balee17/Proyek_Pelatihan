@@ -29,7 +29,7 @@
                 <button class="btn btn-book-a-table dropdown-toggle"  type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->nama }}</button></a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="/profile">Profil</a></li>
-                  <li><a class="dropdown-item" href="/transaksi">Transaksi</a></li>
+                  <li><a class="dropdown-item" href="/riwayat">Transaksi</a></li>
                   <li><a class="dropdown-item" href="/logout">Log out</a></li>
                 </ul>
               </div>
@@ -64,7 +64,7 @@
                     <td>Rp{{ number_format($l->harga, 0, ',', '.') }}</td>    
                     <td>{{$l->status}}</td>
                     <td>
-                    @if($l->status != 'Menunggu Konfirmasi' && $l->status != 'Admin akan mengecek ruangan')
+                    @if($l->status != 'Menunggu Konfirmasi' && $l->status != 'Admin akan mengecek ruangan' && $l->status != 'Selesai')
                         <form id="changeStatusForm{{ $l->id }}" action="/status/{{ $l->id }}" method="POST" style="display: none;">
                             @csrf
                             <input type="hidden" name="_method" value="PUT">
@@ -78,7 +78,6 @@
         </table>
         <script>
     function submitForm(formId) {
-        // Temukan formulir dengan ID tertentu dan kirimkan pengguna ke endpoint yang sesuai
         var form = document.getElementById(formId);
         form.submit();
     }

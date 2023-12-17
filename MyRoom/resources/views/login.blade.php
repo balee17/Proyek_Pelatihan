@@ -14,6 +14,11 @@
         <form class="form-box" action="ceklogin" method="POST">
           @csrf
             <h1>Selamat Datang di MyRoom</h1>
+            @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+             @endif
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" required>
